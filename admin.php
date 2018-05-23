@@ -21,7 +21,7 @@ if (!empty ($_FILES) && array_key_exists('ourfile', $_FILES)) {
 	$list = fopen("list.php", "a");
 	$data = $_FILES['ourfile']['name'];
 	$test = fwrite($list, $data);
-	if ($test) echo 'Данные в файл успешно занесены. Имя теста:'.$_FILES['ourfile']['name'];
+	if ($test) echo 'Данные в файл успешно занесены. Выберите тест:'.'<br>'.'<a href="test.php">'.$_FILES['ourfile']['name'].'</a>';
 	else echo 'Ошибка при записи в файл.';
 	fclose($list);
 }

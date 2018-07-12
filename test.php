@@ -1,20 +1,44 @@
-<?php $json = file_get_contents('t1.json');
+<!DOCTYPE html>
+<html>
+<head>
+  <title>TEST</title>
+  <meta charset="UTF-8">
+</head>
+
+<body>
+
+<?php
+$filename=$_GET['test'];
+$json = file_get_contents("tests/$filename");
 $decode = json_decode($json, true);
+$i=1;
 ?>
 
 
-<?php foreach ($decode as $key => $value) { ?>
-	<form action="test.php" method="POST">	
+<form action="test.php" method="POST">	
+	<?php
+	foreach ($decode as $num) {
+		foreach ($num as $quest) {
+			$i=$i+1;?>
 	<fieldset>
-    <legend><?php echo $key; ?></legend>
-      <?php foreach ($value as $k => $v) {
-        foreach ($v as $e => $val) { ?>
-      <label><input type="radio" name="name"><?php echo $val?></label>
-        <?php } ?>
-      <?php } ?>
-    </fieldset>	
+	<legend><?php echo $quest['ask']; ?></legend>
+	<?php
+	foreach ($quest as $var) {
+		if (is_array($var)) {
+			foreach ($var as $var_ans) {
+				foreach ($var_ans as $ans) { ?>
+    <label><input type="radio" name="name_<?php echo $i?>"><?php echo $ans;?></label>
+     <?php
+ 	}
+ 		}
+			}
+    			} ?>
+    </fieldset>
+    <?php
+	}
+		} ?>
 	<input type="submit" value="Отправить">  
 </form>
-<?php } ?>
 
-<?php echo $_POST ['name']; ?>
+</body>
+</html>
